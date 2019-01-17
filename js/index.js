@@ -14,6 +14,15 @@ var computerResults = 0;
 var games = document.getElementById('games');
 var numberGames;
 
+/* petla przechodzaca przez wszystkie elementy z klasa player-move */
+var buttons = document.querySelectorAll('.player-move');
+function buttonAll() {
+  for (var i = 0; i < buttons.length; i++) {
+    var movement = buttons[i].getAttribute('data-move');
+    plyerMove(movement);
+  }
+}
+
 function playerMove(movement) {
   return Math.floor((Math.random() * 3) + 1);
 }

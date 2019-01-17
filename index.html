@@ -1,46 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" >
-
 <head>
   <meta charset="UTF-8">
   <title>Rock paper scissors</title>
-  
-  
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+      <link rel="stylesheet" href="css/style.css">  
 </head>
-
 <body>
-
   <div>
-  <button id="newGame">New Game</button>
-</div>
-
+    <button id="newGame">New Game</button>
+  </div>
 <div>
-  <button id="button_rock">Rock</button>
-  <button id="button_paper">Paper</button>
-  <button id="button_scissors">Scissors</button>
+  <button id="button_rock" data-move="rock" class="player-move">Rock</button>
+  <button id="button_paper" data-move="paper" class="player-move">Paper</button>
+  <button id="button_scissors" data-move="scissors" class="player-move">Scissors</button>
 </div>
-
 <span id="games">Number of rounds</span>
-
 <div id="output"></div>
-
 <div id="results">
   <span id="playerWin">Player</span>
   <span id="summary">0:0</span>
   <span id="computerWin">Computer</span>
 </div>
-  
-  
-
-    <script  src="js/index.js"></script>
-
-
-
-
+<script  src="js/index.js"></script>
 </body>
-
 </html>
