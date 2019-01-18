@@ -96,7 +96,7 @@ function resetResults() {
 newGame.addEventListener('click', function() {
   numberGames = prompt('Enter the number of games')
   resetResults();
-  if (!isNaN (numberGames) && numberGames != 0) {	
+  if (!isNaN (numberGames) && numberGames != 0) { 
     games.innerHTML = 'Numer of round: ' + numberGames;
   }
   else {
