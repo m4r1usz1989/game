@@ -16,11 +16,13 @@ var numberGames;
 
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
 var buttons = document.querySelectorAll('.player-move');
-function buttonAll() {
-  for (var i = 0; i < buttons.length; i++) {
-    var movement = buttons[i].getAttribute('data-move');
-    plyerMove(movement);
-  }
+
+for (var i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener('click', function () {
+        playerPick = buttons[i].getAttribute('data-move');
+        computerPick = playerMove();
+        compare(playerPick);
+    })
 }
 
 function playerMove(movement) {
