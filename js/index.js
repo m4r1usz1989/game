@@ -13,9 +13,9 @@ var playerResults = 0;
 var computerResults = 0;
 var games = document.getElementById('games');
 var numberGames;
+var buttons = document.querySelectorAll('.player-move');
 
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
-var buttons = document.querySelectorAll('.player-move');
 
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function () {
@@ -92,24 +92,6 @@ function resetResults() {
     output.innerHTML = "";
   }
 }
-
-rock.addEventListener('click', function (){
-  playerPick = 2;
-  computerPick = playerMove();
-  compare(playerPick);
-})
-
-paper.addEventListener('click', function (){
-  playerPick = 1;
-  computerPick = playerMove();
-  compare(playerPick);
-})
-
-scissors.addEventListener('click', function() {
-  playerPick = 3;
-  computerPick = playerMove();
-  compare(playerPick);
-})
 
 newGame.addEventListener('click', function() {
   numberGames = prompt('Enter the number of games')
