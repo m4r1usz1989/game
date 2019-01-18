@@ -18,8 +18,8 @@ var buttons = document.querySelectorAll('.player-move');
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
 
 for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', function () {
-        playerPick = buttons[i].getAttribute('data-move');
+    buttons[i].addEventListener('click', function() {
+        playerPick = this.getAttribute('data-move');
         computerPick = playerMove();
         compare(playerPick);
     })
