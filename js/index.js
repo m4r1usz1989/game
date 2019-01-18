@@ -5,23 +5,25 @@ var rock = document.getElementById('button_rock');
 var paper = document.getElementById('button_paper');
 var scissors = document.getElementById('button_scissors');
 var newGame = document.getElementById('newGame');
-var playerPick;
-var computerPick;
 var playerWin = document.getElementById('playerWin');
 var computerWin = document.getElementById('computerWin');
-var playerResults = 0;
-var computerResults = 0;
 var games = document.getElementById('games');
-var numberGames;
 var buttons = document.querySelectorAll('.player-move');
+var params = {
+  playerResults: 0,
+  computerResults: 0,
+  numberGames: 0,
+  playerPick: 0,
+  computerPick: 0
+};
 
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
 
 for (var i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', function() {
-        playerPick = this.getAttribute('data-move');
-        computerPick = playerMove();
-        compare(playerPick);
+        params.playerPick = this.getAttribute('data-move');
+        params.computerPick = playerMove();
+        compare(params.playerPick);
     })
 }
 
@@ -35,20 +37,20 @@ function replace(movement) {
 }
 
 function wonLose(numberGames) {
-  if (numberGames == 0 && playerResults > computerResults) {
-  output.innerHTML = 'YOU WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(playerPick) + '<br>' + 'computer choose ' + replace(computerPick);
+  if (params.numberGames == 0 && params.playerResults > params.computerResults) {
+  output.innerHTML = 'YOU WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);
   }
-  else if (numberGames == 0 && playerResults < computerResults) {
-  output.innerHTML = 'YOU LOSE. COMPUTER WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(playerPick) + '<br>' + 'computer choose ' + replace(computerPick);;
+  else if (params.numberGames == 0 && params.playerResults < params.computerResults) {
+  output.innerHTML = 'YOU LOSE. COMPUTER WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
   }
-  else if (numberGames == 0 && playerResults == computerResults) {
-  output.innerHTML = 'DRAW!!! <br>' + 'you choose ' + replace(playerPick) + '<br>' + 'computer choose ' + replace(computerPick);;
+  else if (params.numberGames == 0 && params.playerResults == params.computerResults) {
+  output.innerHTML = 'DRAW!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
   }
 }
 
 // funkcja sprawdzająca czy dalsza gra jest możliwa
 function continueGame() {
-  if (numberGames <= 0) {
+  if (params.numberGames <= 0) {
     output.innerHTML += '<br>Game over, please press the new game button!';
     rock.disabled = true;
     paper.disabled = true;
@@ -58,34 +60,34 @@ function continueGame() {
 
 // funkcja porównująca wybory
 function compare() {
-  if (playerPick == computerPick) {
+  if (params.playerPick == params.computerPick) {
     output.innerHTML = 'Draw';
     continueGame();
     return;
   } else if (
-    (computerPick == 2 && playerPick == 3) || 
-    (computerPick == 3 && playerPick == 1) ||
-    (computerPick == 1 && playerPick == 2)) {
-      output.innerHTML = 'YOU LOSE: you choose ' + replace(playerPick) + '<br>' + 'Computer chose ' + replace(computerPick);
-      computerResults++;
+    (params.computerPick == 2 && params.playerPick == 3) || 
+    (params.computerPick == 3 && params.playerPick == 1) ||
+    (params.computerPick == 1 && params.playerPick == 2)) {
+      output.innerHTML = 'YOU LOSE: you choose ' + replace(params.playerPick) + '<br>' + 'Computer chose ' + replace(params.computerPick);
+      params.computerResults++;
   } else {
-    output.innerHTML = 'YOU WON: you choose ' + replace(playerPick) + '<br>' + 'Computer chose ' + replace(computerPick);
-    playerResults++;
+    output.innerHTML = 'YOU WON: you choose ' + replace(params.playerPick) + '<br>' + 'Computer chose ' + replace(params.computerPick);
+    params.playerResults++;
   }
   
-  numberGames--;
-  games.innerHTML = 'Number of round: ' + numberGames;
-  wonLose(numberGames);
-  summary.innerHTML = playerResults + ' : ' + computerResults;
+  params.numberGames--;
+  games.innerHTML = 'Number of round: ' + params.numberGames;
+  wonLose(params.numberGames);
+  summary.innerHTML = params.playerResults + ' : ' + params.computerResults;
   continueGame();
 }
 
 // funkcja resetuje wynik
 function resetResults() {
-  if (playerResults != 0 || computerResults != 0 ) {
-    playerResults = 0;
-    computerResults = 0;
-    summary.innerHTML = playerResults + ' : ' + computerResults;
+  if (params.playerResults != 0 || params.computerResults != 0 ) {
+    params.playerResults = 0;
+    params.computerResults = 0;
+    summary.innerHTML = params.playerResults + ' : ' + params.computerResults;
     rock.disabled = false;
     paper.disabled = false;
     scissors.disabled = false;
@@ -94,10 +96,10 @@ function resetResults() {
 }
 
 newGame.addEventListener('click', function() {
-  numberGames = prompt('Enter the number of games')
+  params.numberGames = prompt('Enter the number of games')
   resetResults();
-  if (!isNaN (numberGames) && numberGames != 0) { 
-    games.innerHTML = 'Numer of round: ' + numberGames;
+  if (!isNaN (params.numberGames) && params.numberGames != 0) { 
+    games.innerHTML = 'Numer of round: ' + params.numberGames;
   }
   else {
     games.innerHTML = 'Enter the number of games';
