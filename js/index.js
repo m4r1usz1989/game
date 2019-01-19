@@ -14,7 +14,7 @@ var params = {
   computerResults: 0,
   numberGames: 0,
   playerPick: 0,
-  computerPick: 0
+  computerPick: 0,
 };
 
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
@@ -146,3 +146,6 @@ function modalClassRemove() {
       event.stopPropagation();
     });
   }
+
+
+
