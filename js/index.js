@@ -38,20 +38,24 @@ function replace(movement) {
 
 function wonLose(numberGames) {
   if (params.numberGames == 0 && params.playerResults > params.computerResults) {
-  output.innerHTML = 'YOU WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);
+    showModal();
+  endResults.innerHTML = 'YOU WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);
   }
   else if (params.numberGames == 0 && params.playerResults < params.computerResults) {
-  output.innerHTML = 'YOU LOSE. COMPUTER WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
+    showModal();
+  endResults.innerHTML = 'YOU LOSE. COMPUTER WON THE ENTIRE GAME!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
   }
   else if (params.numberGames == 0 && params.playerResults == params.computerResults) {
-  output.innerHTML = 'DRAW!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
+    showModal();
+  endResults.innerHTML = 'DRAW!!! <br>' + 'you choose ' + replace(params.playerPick) + '<br>' + 'computer choose ' + replace(params.computerPick);;
   }
 }
 
 // funkcja sprawdzająca czy dalsza gra jest możliwa
 function continueGame() {
   if (params.numberGames <= 0) {
-    output.innerHTML += '<br>Game over, please press the new game button!';
+    showModal();
+    endResults.innerHTML += '<br>Game over, please press the new game button!';
     rock.disabled = true;
     paper.disabled = true;
     scissors.disabled = true;
@@ -105,3 +109,40 @@ newGame.addEventListener('click', function() {
     games.innerHTML = 'Enter the number of games';
   }
 })
+
+// modals
+function modalClassRemove() {
+    var modals = document.querySelectorAll('.modal');
+    for(var i = 0; i < modals.length; i++) {
+      modals[i].classList.remove('show');
+    }
+  };
+  
+ function showModal() {
+  var modals = document.querySelectorAll('.modal');
+  for(var i = 0; i < modals.length; i++) {
+    modals[i].classList.add('show');
+  }
+  document.querySelector('.overlay').classList.add('show');
+ }
+
+  var hideModal = function(event){
+    event.preventDefault();
+    document.querySelector('#modal-overlay').classList.remove('show');
+  };
+  
+  var closeButtons = document.querySelectorAll('.modal .close');
+  
+  for(var i = 0; i < closeButtons.length; i++){
+    closeButtons[i].addEventListener('click', hideModal);
+  }
+  
+  document.querySelector('#modal-overlay').addEventListener('click', hideModal);
+  
+  var modals = document.querySelectorAll('.modal');
+  
+  for(var i = 0; i < modals.length; i++){
+    modals[i].addEventListener('click', function(event){
+      event.stopPropagation();
+    });
+  }
