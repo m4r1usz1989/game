@@ -15,6 +15,7 @@ var params = {
   numberGames: 0,
   playerPick: 0,
   computerPick: 0,
+  progress: []
 };
 
 /* petla przechodzaca przez wszystkie elementy z klasa player-move */
@@ -54,6 +55,7 @@ function wonLose(numberGames) {
 // funkcja sprawdzająca czy dalsza gra jest możliwa
 function continueGame() {
   if (params.numberGames <= 0) {
+    table();
     showModal();
     endResults.innerHTML += '<br>Game over, please press the new game button!';
     rock.disabled = true;
@@ -66,6 +68,12 @@ function continueGame() {
 function compare() {
   if (params.playerPick == params.computerPick) {
     output.innerHTML = 'Draw';
+    params.progress.push({
+      player: params.playerPick, 
+      computer: params.computerPick, 
+      winner: 'Draw',
+      game: params.playerResults + ':' + params.computerResults
+    });
     continueGame();
     return;
   } else if (
@@ -74,9 +82,21 @@ function compare() {
     (params.computerPick == 1 && params.playerPick == 2)) {
       output.innerHTML = 'YOU LOSE: you choose ' + replace(params.playerPick) + '<br>' + 'Computer chose ' + replace(params.computerPick);
       params.computerResults++;
+      params.progress.push({
+      player: params.playerPick, 
+      computer: params.computerPick, 
+      winner: 'Computer',
+      game: params.playerResults + ':' + params.computerResults
+    });
   } else {
     output.innerHTML = 'YOU WON: you choose ' + replace(params.playerPick) + '<br>' + 'Computer chose ' + replace(params.computerPick);
     params.playerResults++;
+    params.progress.push({
+      player: params.playerPick, 
+      computer: params.computerPick, 
+      winner: 'Player',
+      game: params.playerResults + ':' + params.computerResults
+    });
   }
   
   params.numberGames--;
@@ -146,6 +166,17 @@ function modalClassRemove() {
       event.stopPropagation();
     });
   }
+
+  // score table
+function table(){
+  var html = ' <table>' + '<tr><td>Numer rundy</td><td>Ruch gracza</td><td>Ruch komputera</td><td>Wynik rundy</td><td>Wynik gry</td></tr>';
+  for(var i = 0; i < params.progress.length; i++) {
+    html += '<tr><td>' + (i + 1) + '</td><td>' + replace(params.progress[i].player) + '</td><td>' + replace(params.progress[i].computer) + '</td><td>' + params.progress[i].winner + '</td><td>' + params.progress[i].game + '</td></tr>';
+  }
+html += '</table>';
+
+  document.getElementById('scoreTable').innerHTML = html;
+}
 
 
 
